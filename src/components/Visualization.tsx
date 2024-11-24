@@ -6,12 +6,27 @@ import { CustomModel } from './CustomModel';
 
 export function Visualization() {
   const meshRef = useRef<Mesh>(null);
-  const { shape, color, wireframe, rotationSpeed } = useVisualizationStore();
+  const { 
+    shape, 
+    color, 
+    wireframe, 
+    rotationSpeed,
+    dataMode,
+    animations: { playing, speed }
+  } = useVisualizationStore();
 
-  useFrame(() => {
+  useFrame((_, delta) => {
     if (!meshRef.current) return;
-    meshRef.current.rotation.x += 0.01 * rotationSpeed;
-    meshRef.current.rotation.y += 0.01 * rotationSpeed;
+    
+    if (playing && shape !== 'custom') {
+      // Default animation for basic shapes
+      meshRef.current.rotation.y += delta * speed * 2;
+      meshRef.current.rotation.x += delta * speed;
+    } else {
+      // Normal rotation when animation is off
+      meshRef.current.rotation.x += 0.01 * rotationSpeed;
+      meshRef.current.rotation.y += 0.01 * rotationSpeed;
+    }
   });
 
   if (shape === 'custom') {
@@ -19,6 +34,33 @@ export function Visualization() {
   }
 
   const getGeometry = () => {
+    if (dataMode) {
+      // Data visualization mode - use bars
+      return (
+        <group>
+          {Array.from({ length: 10 }, (_, i) => (
+            <mesh
+              key={i}
+              position={[i - 4.5, Math.random() * 2, 0]}
+              castShadow
+              receiveShadow
+            >
+              <boxGeometry args={[0.8, Math.random() * 4 + 1, 0.8]} />
+              <meshPhysicalMaterial
+                color={color}
+                metalness={0.6}
+                roughness={0.2}
+                wireframe={wireframe}
+                clearcoat={0.5}
+                clearcoatRoughness={0.1}
+                reflectivity={1}
+              />
+            </mesh>
+          ))}
+        </group>
+      );
+    }
+
     switch (shape) {
       case 'cube':
         return <boxGeometry args={[1, 1, 1]} />;
@@ -31,7 +73,9 @@ export function Visualization() {
     }
   };
 
-  return (
+  return dataMode ? (
+    getGeometry()
+  ) : (
     <mesh ref={meshRef} castShadow receiveShadow>
       {getGeometry()}
       <meshPhysicalMaterial
