@@ -2,7 +2,7 @@
 
 A powerful 3D model visualization tool built with React, Three.js, and TypeScript. ModelVerse provides an intuitive interface for viewing, analyzing, and interacting with 3D models.
 
-![ModelVerse Screenshot](screenshot.png)
+![ModelVerse Screenshot](screenshot 2024-11-25 012510.png)
 
 ## Features
 
