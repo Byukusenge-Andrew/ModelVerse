@@ -2,6 +2,12 @@
 
 A powerful 3D model visualization tool built with React, Three.js, and TypeScript. ModelVerse provides an intuitive interface for viewing, analyzing, and interacting with 3D models.
 
+# View
+
+View the website at [Modelverse](https://modelverse.netlify.app)
+
+
+
 ![ModelVerse Screenshot](Screenshot)
 
 ## Features
@@ -43,3 +49,4 @@ A powerful 3D model visualization tool built with React, Three.js, and TypeScrip
 - npm or yarn
 
 ### Installation 
+- npm install
