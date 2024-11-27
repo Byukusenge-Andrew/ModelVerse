@@ -32,6 +32,12 @@ export function CameraControls() {
             Top View
           </button>
           <button
+            onClick={() => setView([0, 0, -5])}
+            className="p-2 text-sm bg-gray-100 hover:bg-gray-200 rounded-lg"
+          >
+            Back View
+          </button>
+          <button
             onClick={() => setView([5, 5, 5])}
             className="p-2 text-sm bg-gray-100 hover:bg-gray-200 rounded-lg"
           >

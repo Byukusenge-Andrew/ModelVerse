@@ -47,7 +47,11 @@ export function SidePanel() {
         <div className="p-4 h-full overflow-y-auto">
           <div className="space-y-2">
             {sections.map(({ id, icon: Icon, label, Component }) => (
-              <div key={id} className="border-b border-gray-100 last:border-0">
+              <div 
+                key={id} 
+                className="border-b border-gray-100 last:border-0"
+                title={label}
+              >
                 <button
                   onClick={() => toggleSection(id)}
                   className="w-full p-2 flex items-center justify-between text-gray-700 hover:bg-gray-50 rounded-lg"

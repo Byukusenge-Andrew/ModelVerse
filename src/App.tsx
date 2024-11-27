@@ -1,10 +1,20 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Scene } from './components/Scene';
 import { Controls } from './components/Controls';
 import { SidePanel } from './components/SidePanel';
+import { TutorialOverlay } from './components/TutorialOverlay';
+import { useTutorialStore } from './store/tutorialStore';
 
 function App() {
   const [isFullscreen, setIsFullscreen] = useState(false);
+  const { setIsActive } = useTutorialStore();
+
+  // Force tutorial to show on first load
+  useEffect(() => {
+    if (!localStorage.getItem('hasSeenTutorial')) {
+      setIsActive(true);
+    }
+  }, [setIsActive]);
 
   const toggleFullscreen = () => {
     if (!document.fullscreenElement) {
@@ -21,6 +31,7 @@ function App() {
       <Scene />
       <SidePanel />
       <Controls onFullscreen={toggleFullscreen} isFullscreen={isFullscreen} />
+      <TutorialOverlay />
     </div>
   );
 }

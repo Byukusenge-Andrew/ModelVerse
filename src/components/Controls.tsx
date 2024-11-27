@@ -1,6 +1,7 @@
-import { Box, Maximize2, Minimize2, Octagon, Pause, Play, Circle, Square, ZoomIn, ZoomOut, BarChart, Activity } from 'lucide-react';
+import { Box, Maximize2, Minimize2, Octagon, Pause, Play, Circle, Square, ZoomIn, ZoomOut, BarChart, Activity, HelpCircle } from 'lucide-react';
 import { useVisualizationStore } from '../store/visualizationStore';
 import { ModelUpload } from './ModelUpload';
+import { useTutorialStore } from '../store/tutorialStore';
 
 interface ControlsProps {
   onFullscreen: () => void;
@@ -28,6 +29,8 @@ export function Controls({ onFullscreen, isFullscreen }: ControlsProps) {
     toggleDataMode
   } = useVisualizationStore();
 
+  const { setIsActive } = useTutorialStore();
+
   return (
     <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 bg-white/90 backdrop-blur-sm rounded-full px-6 py-3 shadow-lg">
       <div className="flex items-center gap-6">
@@ -52,7 +55,9 @@ export function Controls({ onFullscreen, isFullscreen }: ControlsProps) {
         >
           <Octagon className="w-5 h-5 text-indigo-600" />
         </button>
-        <ModelUpload />
+        <div title="Upload GLTF Folder">
+          <ModelUpload />
+        </div>
         <div className="w-px h-6 bg-gray-200" />
         <div className="flex items-center gap-2">
           <input
@@ -124,6 +129,13 @@ export function Controls({ onFullscreen, isFullscreen }: ControlsProps) {
           <Activity className="w-5 h-5 text-indigo-600" />
         </button>
         <div className="w-px h-6 bg-gray-200" />
+        <button
+          onClick={() => setIsActive(true)}
+          className="p-2 hover:bg-indigo-100 rounded-full transition-colors"
+          title="Start Tutorial"
+        >
+          <HelpCircle className="w-5 h-5 text-indigo-600" />
+        </button>
         <button
           onClick={onFullscreen}
           className="p-2 hover:bg-indigo-100 rounded-full transition-colors"
