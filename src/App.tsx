@@ -9,8 +9,9 @@ function App() {
   const [isFullscreen, setIsFullscreen] = useState(false);
   const { setIsActive } = useTutorialStore();
 
-  // Force tutorial to show on first load
+  // Add console log for debugging
   useEffect(() => {
+    console.log('App component mounted');
     if (!localStorage.getItem('hasSeenTutorial')) {
       setIsActive(true);
     }
