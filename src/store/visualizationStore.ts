@@ -1,6 +1,7 @@
 import { create } from 'zustand';
 
 type ShapeType = 'cube' | 'sphere' | 'octahedron' | 'custom';
+type MaterialPropertyKey = 'metalness' | 'roughness' | 'clearcoat' | 'reflectivity';
 
 interface VisualizationState {
   shape: ShapeType;
@@ -32,6 +33,12 @@ interface VisualizationState {
     playing: boolean;
     speed: number;
   };
+  materialProperties: {
+    metalness: number;
+    roughness: number;
+    clearcoat: number;
+    reflectivity: number;
+  };
   setShape: (shape: ShapeType) => void;
   setColor: (color: string) => void;
   toggleWireframe: () => void;
@@ -52,6 +59,7 @@ interface VisualizationState {
   setCurrentAnimation: (name: string | null) => void;
   toggleAnimation: () => void;
   setAnimationSpeed: (speed: number) => void;
+  setMaterialProperty: (property: MaterialPropertyKey, value: number) => void;
 }
 
 export const useVisualizationStore = create<VisualizationState>((set) => ({
@@ -84,6 +92,12 @@ export const useVisualizationStore = create<VisualizationState>((set) => ({
     playing: false,
     speed: 1
   },
+  materialProperties: {
+    metalness: 0.6,
+    roughness: 0.2,
+    clearcoat: 0.5,
+    reflectivity: 1
+  },
   setShape: (shape) => set({ shape }),
   setColor: (color) => set({ color }),
   toggleWireframe: () => set((state) => ({ wireframe: !state.wireframe })),
@@ -109,13 +123,28 @@ export const useVisualizationStore = create<VisualizationState>((set) => ({
   setAnimations: (clips) => set((state) => ({ 
     animations: { ...state.animations, clips } 
   })),
-  setCurrentAnimation: (name) => set((state) => ({ 
-    animations: { ...state.animations, current: name } 
-  })),
+  setCurrentAnimation: (name) => set((state) => {
+    if (state.animations.current !== name) {
+      return { 
+        animations: { 
+          ...state.animations, 
+          current: name,
+          playing: name ? true : false
+        } 
+      };
+    }
+    return { animations: { ...state.animations, current: name } };
+  }),
   toggleAnimation: () => set((state) => ({ 
     animations: { ...state.animations, playing: !state.animations.playing } 
   })),
   setAnimationSpeed: (speed) => set((state) => ({ 
     animations: { ...state.animations, speed } 
+  })),
+  setMaterialProperty: (property, value) => set((state) => ({
+    materialProperties: {
+      ...state.materialProperties,
+      [property]: value
+    }
   })),
 }));

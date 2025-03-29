@@ -4,6 +4,7 @@ import { Controls } from './components/Controls';
 import { SidePanel } from './components/SidePanel';
 import { TutorialOverlay } from './components/TutorialOverlay';
 import { useTutorialStore } from './store/tutorialStore';
+import { AnimationDebugger } from './components/AnimationDebugger';
 
 function App() {
   const [isFullscreen, setIsFullscreen] = useState(false);
@@ -33,6 +34,7 @@ function App() {
       <SidePanel />
       <Controls onFullscreen={toggleFullscreen} isFullscreen={isFullscreen} />
       <TutorialOverlay />
+      <AnimationDebugger />
     </div>
   );
 }

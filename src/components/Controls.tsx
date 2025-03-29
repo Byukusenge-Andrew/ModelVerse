@@ -2,6 +2,7 @@ import { Box, Maximize2, Minimize2, Octagon, Pause, Play, Circle, Square, ZoomIn
 import { useVisualizationStore } from '../store/visualizationStore';
 import { ModelUpload } from './ModelUpload';
 import { useTutorialStore } from '../store/tutorialStore';
+import { ThemeSwitcher } from './ThemeSwitcher';
 
 interface ControlsProps {
   onFullscreen: () => void;
@@ -32,7 +33,7 @@ export function Controls({ onFullscreen, isFullscreen }: ControlsProps) {
   const { setIsActive } = useTutorialStore();
 
   return (
-    <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 bg-white/90 backdrop-blur-sm rounded-full px-6 py-3 shadow-lg">
+    <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 bg-white/90 dark:bg-gray-800/90 backdrop-blur-sm rounded-full px-6 py-3 shadow-lg">
       <div className="flex items-center gap-6">
         <button 
           onClick={() => setShape('cube')}
@@ -58,7 +59,7 @@ export function Controls({ onFullscreen, isFullscreen }: ControlsProps) {
         <div title="Upload GLTF Folder">
           <ModelUpload />
         </div>
-        <div className="w-px h-6 bg-gray-200" />
+        <div className="w-px h-6 bg-gray-200 dark:bg-gray-700" />
         <div className="flex items-center gap-2">
           <input
             type="color"
@@ -128,23 +129,24 @@ export function Controls({ onFullscreen, isFullscreen }: ControlsProps) {
         >
           <Activity className="w-5 h-5 text-indigo-600" />
         </button>
-        <div className="w-px h-6 bg-gray-200" />
+        <div className="w-px h-6 bg-gray-200 dark:bg-gray-700" />
+        <ThemeSwitcher />
         <button
           onClick={() => setIsActive(true)}
-          className="p-2 hover:bg-indigo-100 rounded-full transition-colors"
+          className="p-2 hover:bg-indigo-100 dark:hover:bg-gray-700 rounded-full transition-colors"
           title="Start Tutorial"
         >
-          <HelpCircle className="w-5 h-5 text-indigo-600" />
+          <HelpCircle className="w-5 h-5 text-indigo-600 dark:text-indigo-400" />
         </button>
         <button
           onClick={onFullscreen}
-          className="p-2 hover:bg-indigo-100 rounded-full transition-colors"
+          className="p-2 hover:bg-indigo-100 dark:hover:bg-gray-700 rounded-full transition-colors"
           title="Toggle Fullscreen"
         >
           {isFullscreen ? (
-            <Minimize2 className="w-5 h-5 text-indigo-600" />
+            <Minimize2 className="w-5 h-5 text-indigo-600 dark:text-indigo-400" />
           ) : (
-            <Maximize2 className="w-5 h-5 text-indigo-600" />
+            <Maximize2 className="w-5 h-5 text-indigo-600 dark:text-indigo-400" />
           )}
         </button>
       </div>

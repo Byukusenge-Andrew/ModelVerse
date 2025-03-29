@@ -12,6 +12,7 @@ export function Visualization() {
     wireframe, 
     rotationSpeed,
     dataMode,
+    materialProperties,
     animations: { playing, speed }
   } = useVisualizationStore();
 
@@ -80,12 +81,12 @@ export function Visualization() {
       {getGeometry()}
       <meshPhysicalMaterial
         color={color}
-        metalness={0.6}
-        roughness={0.2}
+        metalness={materialProperties.metalness}
+        roughness={materialProperties.roughness}
         wireframe={wireframe}
-        clearcoat={0.5}
-        clearcoatRoughness={0.1}
-        reflectivity={1}
+        clearcoat={materialProperties.clearcoat}
+        clearcoatRoughness={materialProperties.roughness * 0.5}
+        reflectivity={materialProperties.reflectivity}
       />
     </mesh>
   );

@@ -1,11 +1,13 @@
 import { useState } from 'react';
-import { Camera, Image, Ruler, ChevronRight, ChevronLeft, Box, Sun, ChevronDown, ChevronUp, Play } from 'lucide-react';
+import { Camera, Image, Ruler, ChevronRight, ChevronLeft, Box, Sun, ChevronDown, ChevronUp, Play, Droplet, Save } from 'lucide-react';
 import { CameraControls } from './panels/CameraControls';
 import { ExportControls } from './panels/ExportControls';
 import { MeasurementTools } from './panels/MeasurementTools';
 import { ModelAnalysis } from './panels/ModelAnalysis';
 import { EnvironmentSettings } from './panels/EnvironmentSettings';
 import { AnimationControls } from './panels/AnimationControls';
+import { MaterialEditor } from './panels/MaterialEditor';
+import { ScenePresets } from './panels/ScenePresets';
 
 export function SidePanel() {
   const [isOpen, setIsOpen] = useState(true);
@@ -13,6 +15,8 @@ export function SidePanel() {
 
   const sections = [
     { id: 'camera', icon: Camera, label: 'Camera Controls', Component: CameraControls },
+    { id: 'material', icon: Droplet, label: 'Material Editor', Component: MaterialEditor },
+    { id: 'presets', icon: Save, label: 'Scene Presets', Component: ScenePresets },
     { id: 'export', icon: Image, label: 'Export Options', Component: ExportControls },
     { id: 'measure', icon: Ruler, label: 'Measurements', Component: MeasurementTools },
     { id: 'analysis', icon: Box, label: 'Model Analysis', Component: ModelAnalysis },
